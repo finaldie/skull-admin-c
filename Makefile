@@ -8,12 +8,12 @@ TEST_TARGET = test_mod
 
 INC = \
     -Isrc \
-    -I../common/c/src
+    -I../../common/c/src
 
 DEPS_LDFLAGS +=
 DEPS_LIBS =
 
-SKULL_CFLAGS = $(CFLAGS) $(STD) $(WARN) $(EXTRA) $(MACRO) $(OPT) $(SHARED) $(OTHER) $(INC)
+SKULL_CFLAGS = $(CFLAGS) $(STD) $(WARN) $(EXTRA) $(MACRO) $(OPT) $(OTHER) $(INC)
 SKULL_CC = $(CC) $(SKULL_CFLAGS)
 
 SKULL_LDFLAGS = $(LDFLAGS) $(SHARED) $(OTHER) $(DEPS_LDFLAGS) $(DEPS_LIBS)

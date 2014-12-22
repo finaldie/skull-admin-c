@@ -25,7 +25,7 @@ size_t module_unpack(const char* data, size_t data_sz)
         return 0;
     }
 
-    if (0 != strncmp(data[data_sz - 2], "\r\n", 2)) {
+    if (0 != strncmp(&data[data_sz - 2], "\r\n", 2)) {
         return 0;
     }
 
@@ -36,7 +36,7 @@ size_t module_unpack(const char* data, size_t data_sz)
 static
 void process_show()
 {
-    skull_metric_dump();
+    skull_metric_dump(0);
 }
 
 int module_run(sk_txn_t* txn)
@@ -48,10 +48,11 @@ int module_run(sk_txn_t* txn)
 
     printf("receive command: %s\n", command);
     SKULL_LOG_INFO(1, "receive command: %s", command);
+
     if (0 == strcmp("help", command)) {
         sk_txn_output_append(txn, CMD_HELP, strlen(CMD_HELP));
     } else if (0 == strcmp("show", command)) {
-
+        process_show();
     } else {
         sk_txn_output_append(txn, CMD_HELP, strlen(CMD_HELP));
     }
