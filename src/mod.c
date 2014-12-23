@@ -44,7 +44,7 @@ int module_run(sk_txn_t* txn)
     size_t data_sz = 0;
     const char* data = sk_txn_input(txn, &data_sz);
     char* command = calloc(1, data_sz + 1);
-    memcpy(command, data, data_sz);
+    memcpy(command, data, data_sz - 2); // remove the tailer '\r\n'
 
     printf("receive command: %s\n", command);
     SKULL_LOG_INFO(1, "receive command: %s", command);
