@@ -34,9 +34,18 @@ size_t module_unpack(const char* data, size_t data_sz)
 }
 
 static
-void process_show()
+void _metrics_each_cb(const char* name, uint32_t value, void* ud)
 {
-    skull_metric_dump(0);
+    sk_txn_t* txn = ud;
+    char metric[256] = {0};
+    snprintf(metric, 256, "%s: %u\n", name, value);
+    sk_txn_output_append(txn, metric, strlen(metric));
+}
+
+static
+void process_show(sk_txn_t* txn)
+{
+    skull_metric_foreach(_metrics_each_cb, txn);
 }
 
 int module_run(sk_txn_t* txn)
@@ -52,7 +61,7 @@ int module_run(sk_txn_t* txn)
     if (0 == strcmp("help", command)) {
         sk_txn_output_append(txn, CMD_HELP, strlen(CMD_HELP));
     } else if (0 == strcmp("show", command)) {
-        process_show();
+        process_show(txn);
     } else {
         sk_txn_output_append(txn, CMD_HELP, strlen(CMD_HELP));
     }
@@ -64,9 +73,7 @@ int module_run(sk_txn_t* txn)
 void module_pack(sk_txn_t* txn)
 {
     size_t data_sz = 0;
-    const char* data = sk_txn_input(txn, &data_sz);
 
     printf("module_pack(test): data sz:%zu\n", data_sz);
     SKULL_LOG_INFO(1, "module_pack(test): data sz:%zu", data_sz);
-    sk_txn_output_append(txn, data, data_sz);
 }
