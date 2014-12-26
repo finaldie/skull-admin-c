@@ -34,11 +34,11 @@ size_t module_unpack(const char* data, size_t data_sz)
 }
 
 static
-void _metrics_each_cb(const char* name, uint32_t value, void* ud)
+void _metrics_each_cb(const char* name, double value, void* ud)
 {
     sk_txn_t* txn = ud;
     char metric[256] = {0};
-    snprintf(metric, 256, "%s: %u\n", name, value);
+    snprintf(metric, 256, "%s: %f\n", name, value);
     sk_txn_output_append(txn, metric, strlen(metric));
 }
 
