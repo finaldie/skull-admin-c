@@ -16,7 +16,7 @@ DEPS_LIBS =
 SKULL_CFLAGS = $(CFLAGS) $(STD) $(WARN) $(EXTRA) $(MACRO) $(OPT) $(OTHER) $(INC)
 SKULL_CC = $(CC) $(SKULL_CFLAGS)
 
-SKULL_LDFLAGS = $(LDFLAGS) $(SHARED) $(OTHER) $(DEPS_LDFLAGS) $(DEPS_LIBS)
+SKULL_LDFLAGS = $(LDFLAGS) $(SHARED) $(OTHER) $(DEPS_LDFLAGS)
 SKULL_LD = $(CC) $(SKULL_LDFLAGS)
 
 # Objs and deployment related items
@@ -35,7 +35,7 @@ DEPLOY_DIR ?= $(DEPLOY_MOD_ROOT)/$(MOD_NAME)
 
 # Required by skull
 $(TARGET): $(OBJS)
-	$(SKULL_LD) -o $(TARGET).so $(OBJS)
+	$(SKULL_LD) -o $(TARGET).so $(OBJS) $(DEPS_LIBS)
 
 # Required by skull
 check: $(TEST_OBJS)
