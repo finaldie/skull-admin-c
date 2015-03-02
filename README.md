@@ -7,8 +7,13 @@ Skull Admin module (C version)
 ```
 cd $SKULL_PROJ_ROOT/src/modules
 git clone git@github.com:finaldie/skull-admin-c.git admin
+cp admin/idl/admin.proto ../../config
+skull module --conf-gen
+skull workflow -add # then input concurrent: no, idl: admin, port: yes -> 7759
 skull module -add   # then input the module name: "admin", workflow: "1"
 skull build
+skull deploy
+skull start
 ```
 
 ## Usage

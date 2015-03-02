@@ -1,0 +1,8 @@
+package skull;
+
+message admin {
+    required bool ignore = 1 [default = false];
+    required string command = 2;
+    required int32 metrics_count = 3 [default = 0];
+    repeated bytes metrics_array = 4;
+}
