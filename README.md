@@ -13,7 +13,6 @@ skull workflow -add # then input concurrent: no, idl: admin, port: yes -> 7759
 skull module -add   # then input the module name: "admin", workflow: "1"
 skull build
 skull deploy
-skull start
 ```
 
 ## Usage
@@ -24,16 +23,20 @@ telnet 0 7759
 Trying 0.0.0.0...
 Connected to 0.
 Escape character is '^]'.
+
+help
+commands help:
+ - help
+ - show
+
 show
-skull.core.g.global.connection: 2.000000
-skull.core.g.global.response: 8.000000
-skull.core.g.global.latency: 1772.000000
-skull.core.g.global.request: 9.000000
-skull.core.t.worker.accept.worker0: 2.000000
-skull.core.t.worker.latency.worker0: 1772.000000
-skull.core.t.worker.connection.worker0: 2.000000
-skull.core.t.worker.response.worker0: 8.000000
-skull.core.t.worker.request.worker0: 9.000000
-skull.user.s.module.response: 8.000000
-skull.user.s.module.request: 8.000000
+skull.core.g.global.connection: 1.000000
+skull.core.g.global.response: 1.000000
+skull.core.g.global.latency: 347.000000
+skull.core.g.global.request: 4.000000
+skull.core.t.worker.accept.worker0: 1.000000
+skull.core.t.worker.latency.worker0: 347.000000
+skull.core.t.worker.connection.worker0: 1.000000
+skull.core.t.worker.response.worker0: 1.000000
+skull.core.t.worker.request.worker0: 4.000000
 ```
