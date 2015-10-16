@@ -13,7 +13,8 @@
 
 #include "skull/api.h"
 #include "skull_metrics.h"
-#include "skull_idl.h"
+#include "skull_txn_sharedata.h"
+#include "skull_srv_api_proto.h"
 #include "config.h"
 
 #define CMD_HELP "commands help:\n - help\n - show\n"
@@ -48,7 +49,7 @@ size_t module_unpack(skull_txn_t* txn, const void* data, size_t data_sz)
         return 0;
     }
 
-    Skull__Admin* admin_data = skull_idldata_admin(txn);
+    Skull__Admin* admin_data = skull_txn_sharedata_admin(txn);
     admin_data->ignore = 0;
 
     // for the empty line, just mark this request can be ignored
@@ -75,7 +76,7 @@ static
 void _metrics_each_cb(const char* name, double value, void* ud)
 {
     skull_txn_t* txn = ud;
-    Skull__Admin* admin_data = skull_idldata_admin(txn);
+    Skull__Admin* admin_data = skull_txn_sharedata_admin(txn);
     int index = admin_data->metrics_count;
     if (index >= MAX_METRICS_COUNT) {
         printf("exceed the max metrics limitation: %d\n", MAX_METRICS_COUNT);
@@ -103,7 +104,7 @@ void process_show(skull_txn_t* txn)
 static
 void process_help(skull_txn_t* txn)
 {
-    Skull__Admin* admin_data = skull_idldata_admin(txn);
+    Skull__Admin* admin_data = skull_txn_sharedata_admin(txn);
     admin_data->metrics_array[0].len = MAX_METRICS_LEN;
     admin_data->metrics_array[0].data = calloc(1, MAX_METRICS_LEN);
 
@@ -117,7 +118,7 @@ void process_help(skull_txn_t* txn)
 
 int module_run(skull_txn_t* txn)
 {
-    Skull__Admin* admin_data = skull_idldata_admin(txn);
+    Skull__Admin* admin_data = skull_txn_sharedata_admin(txn);
     bool ignore = admin_data->ignore;
     if (ignore) {
         return 0;
@@ -140,7 +141,7 @@ int module_run(skull_txn_t* txn)
 
 void module_pack(skull_txn_t* txn, skull_txndata_t* txndata)
 {
-    Skull__Admin* admin_data = skull_idldata_admin(txn);
+    Skull__Admin* admin_data = skull_txn_sharedata_admin(txn);
     bool ignore = admin_data->ignore;
     if (ignore) {
         return;
