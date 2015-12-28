@@ -1,4 +1,4 @@
-skull-admin-c
+skull-admin-c (Deprecated)
 =============
 
 Skull Admin module (C version)
